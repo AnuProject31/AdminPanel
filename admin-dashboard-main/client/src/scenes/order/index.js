@@ -20,10 +20,10 @@ const Orders = () => {
   }, []);
 
   return (
-    <Box m="1.5rem 2.5rem" style={{ backgroundColor: theme.palette.background.default, color: theme.palette.text.primary }}>
+    <Box m="1.5rem 2.5rem" bgcolor={theme.palette.background.default} color={theme.palette.text.primary}>
       <Header title="Order List" subtitle="List of all orders" />
-      <Box mt="40px">
-        <TableContainer component={Paper} style={{ backgroundColor: theme.palette.background.paper }}>
+      <Box mt={4}>
+        <TableContainer component={Paper} style={{ backgroundColor: theme.palette.background.alt }}>
           <Table>
             <TableHead>
               <TableRow style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.primary.contrastText }}>
@@ -49,9 +49,7 @@ const Orders = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={6} style={{ textAlign: "center", padding: "20px" }}>
-                    No orders found
-                  </TableCell>
+                  <TableCell colSpan={6} style={{ textAlign: "center", padding: "20px" }}>No orders found</TableCell>
                 </TableRow>
               )}
             </TableBody>
@@ -63,3 +61,4 @@ const Orders = () => {
 };
 
 export default Orders;
+
