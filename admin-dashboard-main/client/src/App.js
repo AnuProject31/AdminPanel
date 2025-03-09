@@ -12,7 +12,8 @@ import Products from "scenes/products";
 import Order from "scenes/order";
 import Customers from "scenes/customers";
 import Transactions from "scenes/transactions";
-
+import AddCustomer from "scenes/AddCustomer";
+import EditCustomer from "scenes/EditCustomer";
 function App() {
   // Fix: Use the correct state selector
   const mode = useSelector((state) => state.global.mode);
@@ -36,6 +37,8 @@ function App() {
                 <Route path="/order" element={<Order />} />
                 <Route path="/customers" element={<Customers />} />
                 <Route path="/transactions" element={<Transactions />} />
+                <Route path="/addcustomer" element={<AddCustomer />}/>
+                <Route path="/editcustomer" element={<EditCustomer />} />
               </Route>
             </Route>
 
