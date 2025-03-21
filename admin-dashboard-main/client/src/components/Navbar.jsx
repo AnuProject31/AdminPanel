@@ -1,10 +1,8 @@
-// import React, { useState } from "react";
+// import React from "react";
 // import {
 //   LightModeOutlined,
 //   DarkModeOutlined,
 //   Menu as MenuIcon,
-//   Search,
-//   ArrowDropDownOutlined,
 // } from "@mui/icons-material";
 // import FlexBetween from "components/FlexBetween";
 // import { useDispatch, useSelector } from "react-redux";
@@ -14,42 +12,15 @@
 //   AppBar,
 //   Toolbar,
 //   useTheme,
-//   InputBase,
 //   IconButton,
-//   Button,
 //   Box,
 //   Typography,
-//   Menu,
-//   MenuItem,
 // } from "@mui/material";
 
-// const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen, data, setFilteredData }) => {
+// const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
 //   const dispatch = useDispatch();
 //   const theme = useTheme();
 //   const mode = useSelector((state) => state.global.mode);
-
-//   const [anchorEl, setAnchorEl] = useState(null);
-//   const [searchTerm, setSearchTerm] = useState(""); // State for search input
-//   const isOpen = Boolean(anchorEl);
-
-//   const handleClick = (e) => setAnchorEl(e.currentTarget);
-//   const handleClose = () => setAnchorEl(null);
-
-//   // Handle Search Input Change
-//   const handleSearch = (e) => {
-//     const value = e.target.value.toLowerCase();
-//     setSearchTerm(value);
-
-//     // Filter Data Based on Search Input
-//     if (value === "") {
-//       setFilteredData(data); // Reset if empty
-//     } else {
-//       const filtered = data.filter((item) =>
-//         item.name.toLowerCase().startsWith(value)
-//       );
-//       setFilteredData(filtered);
-//     }
-//   };
 
 //   return (
 //     <AppBar
@@ -65,26 +36,11 @@
 //           <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
 //             <MenuIcon />
 //           </IconButton>
-//           <FlexBetween
-//             backgroundColor={theme.palette.background.alt}
-//             borderRadius="9px"
-//             gap="1rem"
-//             p="0.1rem 1.5rem"
-//           >
-//             <InputBase
-//               placeholder="Search..."
-//               value={searchTerm}
-//               onChange={handleSearch}
-//               sx={{ width: "200px" }}
-//             />
-//             <IconButton>
-//               <Search />
-//             </IconButton>
-//           </FlexBetween>
 //         </FlexBetween>
 
 //         {/* RIGHT SIDE */}
 //         <FlexBetween gap="1.5rem">
+//           {/* Theme Toggle */}
 //           <IconButton onClick={() => dispatch(setMode())}>
 //             {mode === "dark" ? (
 //               <DarkModeOutlined sx={{ fontSize: "25px" }} />
@@ -92,54 +48,34 @@
 //               <LightModeOutlined sx={{ fontSize: "25px" }} />
 //             )}
 //           </IconButton>
-//           <FlexBetween>
-//             <Button
-//               onClick={handleClick}
-//               sx={{
-//                 display: "flex",
-//                 justifyContent: "space-between",
-//                 alignItems: "center",
-//                 textTransform: "none",
-//                 gap: "1rem",
-//               }}
-//             >
-//               <Box
-//                 component="img"
-//                 alt="profile"
-//                 src={Logo}
-//                 height="40px"
-//                 width="40px"
-//                 borderRadius="50%"
-//                 sx={{ objectFit: "cover" }}
-//               />
-//               <Box textAlign="left">
-//                 <Typography
-//                   fontWeight="bold"
-//                   fontSize="0.85rem"
-//                   sx={{ color: theme.palette.secondary[100] }}
-//                 >
-//                   ANUSUA DUTTA
-//                 </Typography>
-//                 <Typography
-//                   fontWeight="bold"
-//                   fontSize="0.75rem"
-//                   sx={{ color: theme.palette.secondary[200] }}
-//                 >
-//                   ENGINEER
-//                 </Typography>
-//               </Box>
-//               <ArrowDropDownOutlined
-//                 sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-//               />
-//             </Button>
-//             <Menu
-//               anchorEl={anchorEl}
-//               open={isOpen}
-//               onClose={handleClose}
-//               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-//             >
-//               <MenuItem onClick={handleClose}>Log Out</MenuItem>
-//             </Menu>
+
+//           {/* Profile Info (WITHOUT DROPDOWN) */}
+//           <FlexBetween gap="1rem">
+//             <Box
+//               component="img"
+//               alt="profile"
+//               src={Logo}
+//               height="40px"
+//               width="40px"
+//               borderRadius="50%"
+//               sx={{ objectFit: "cover" }}
+//             />
+//             <Box textAlign="left">
+//               <Typography
+//                 fontWeight="bold"
+//                 fontSize="0.85rem"
+//                 sx={{ color: theme.palette.secondary[100] }}
+//               >
+//                 ANUSUA DUTTA
+//               </Typography>
+//               <Typography
+//                 fontWeight="bold"
+//                 fontSize="0.75rem"
+//                 sx={{ color: theme.palette.secondary[200] }}
+//               >
+//                 ENGINEER
+//               </Typography>
+//             </Box>
 //           </FlexBetween>
 //         </FlexBetween>
 //       </Toolbar>
@@ -148,39 +84,60 @@
 // };
 
 // export default Navbar;
-import React, { useState } from "react";
+// src/components/Navbar.js
+import React, { useState, useEffect } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
   Menu as MenuIcon,
-  ArrowDropDownOutlined,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode } from "state";
-import Logo from "../assets/images/LOGO.jpg";
+import DefaultLogo from "../assets/images/LOGO.jpg"; // Default logo
 import {
   AppBar,
   Toolbar,
   useTheme,
   IconButton,
-  Button,
   Box,
   Typography,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const mode = useSelector((state) => state.global.mode);
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const isOpen = Boolean(anchorEl);
+  // State for profile image
+  const [profileImage, setProfileImage] = useState(DefaultLogo);
 
-  const handleClick = (e) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  // Load profile image from localStorage
+  useEffect(() => {
+    const storedImage = localStorage.getItem("profileImage");
+    if (storedImage) {
+      setProfileImage(storedImage);
+    }
+  }, []);
+
+  // Handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+        localStorage.setItem("profileImage", reader.result); // Save image in localStorage
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Trigger file input on click
+  const handleImageClick = () => {
+    document.getElementById("imageUploadInput").click();
+  };
 
   return (
     <AppBar
@@ -200,6 +157,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
         {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
+          {/* Theme Toggle */}
           <IconButton onClick={() => dispatch(setMode())}>
             {mode === "dark" ? (
               <DarkModeOutlined sx={{ fontSize: "25px" }} />
@@ -207,54 +165,47 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <FlexBetween>
-            <Button
-              onClick={handleClick}
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                textTransform: "none",
-                gap: "1rem",
-              }}
-            >
-              <Box
-                component="img"
-                alt="profile"
-                src={Logo}
-                height="40px"
-                width="40px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-              />
-              <Box textAlign="left">
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.85rem"
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  ANUSUA DUTTA
-                </Typography>
-                <Typography
-                  fontWeight="bold"
-                  fontSize="0.75rem"
-                  sx={{ color: theme.palette.secondary[200] }}
-                >
-                  ENGINEER
-                </Typography>
-              </Box>
-              <ArrowDropDownOutlined
-                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-              />
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={isOpen}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
-            </Menu>
+
+          {/* Profile Info with Image Upload */}
+          <FlexBetween gap="1rem">
+            {/* Hidden File Input for Image Upload */}
+            <input
+              id="imageUploadInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageUpload}
+            />
+
+            {/* Clickable Profile Image */}
+            <Box
+              component="img"
+              alt="profile"
+              src={profileImage}
+              height="40px"
+              width="40px"
+              borderRadius="50%"
+              sx={{ objectFit: "cover", cursor: "pointer" }}
+              onClick={handleImageClick}
+            />
+            
+            {/* User Info */}
+            <Box textAlign="left">
+              <Typography
+                fontWeight="bold"
+                fontSize="0.85rem"
+                sx={{ color: theme.palette.secondary[100] }}
+              >
+                ANUSUA DUTTA
+              </Typography>
+              <Typography
+                fontWeight="bold"
+                fontSize="0.75rem"
+                sx={{ color: theme.palette.secondary[200] }}
+              >
+                ENGINEER
+              </Typography>
+            </Box>
           </FlexBetween>
         </FlexBetween>
       </Toolbar>

@@ -59,6 +59,7 @@ const EditCustomer = () => {
       const response = await axios.put(`http://localhost:5001/updateEmployeeData/${id}`, formData);
       
       if (response.data.status) {
+        alert("Data Edited Successfully")
         toast.success("Customer updated successfully!");
         
         // ✅ Redirect to customer list after successful update

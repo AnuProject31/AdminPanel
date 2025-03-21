@@ -30,8 +30,9 @@ const AddCustomer = () => {
     try {
 
       const response = await axios.post("http://localhost:5001/insertEmployeeData", formData);
-      console.log(response)
-      if (response.data.status) {
+      console.log("This Data is", response.data.status)
+      if (response.data.status === true ) {
+        alert("Success")
         toast.success("Customer added successfully!");
         navigate("/customers", { state: { refresh: Date.now() } }); // Ensure refresh triggers
       } else {
